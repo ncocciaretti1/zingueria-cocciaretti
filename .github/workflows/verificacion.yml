@@ -14,9 +14,9 @@ jobs:
       - name: Todos los enlaces usan el número correcto
         run: |
           set -euo pipefail
-          malos=$(grep -hEo 'wa\.me/[0-9]+' index.html 404.html | grep -v '^wa\.me/5492916442231$' || true)
+          malos=$(grep -hEo 'wa\.me/[0-9]+' index.html 404.html | grep -vxF 'wa.me/5492916442231' || true)
           if [ -n "$malos" ]; then echo "::error::wa.me con número incorrecto: $malos"; exit 1; fi
-          malos=$(grep -hEo 'tel:\+[0-9]+' index.html 404.html | grep -v '^tel:\+5492916442231$' || true)
+          malos=$(grep -hEo 'tel:\+[0-9]+' index.html 404.html | grep -vxF 'tel:+5492916442231' || true)
           if [ -n "$malos" ]; then echo "::error::tel: con número incorrecto: $malos"; exit 1; fi
           grep -q 'wa\.me/5492916442231' index.html
           grep -q 'tel:+5492916442231' index.html
