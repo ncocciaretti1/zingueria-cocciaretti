@@ -18,6 +18,9 @@ garantía como un sello de goma estampado sobre la boleta.
 | `favicon.svg` | Ícono de pestaña (la marca: casa de chapa plegada con la C-canaleta) |
 | `favicon-32.png` / `apple-touch-icon.png` | Íconos raster para Safari/iPhone |
 | `og.png` | Imagen de vista previa (1200×630) para compartir el link por WhatsApp/redes |
+| `robots.txt` / `sitemap.xml` | SEO técnico: indexación y mapa del sitio |
+| `404.html` | Página de error propia ("OT-404") con botones de contacto |
+| `site.webmanifest` + `icon-192/512.png` | "Agregar a pantalla de inicio" con ícono y colores de marca |
 
 Sin dependencias ni build: es HTML/CSS/JS estático. Las tipografías se cargan de
 Google Fonts (Anton, Archivo, Archivo Narrow, Caveat, IBM Plex Mono — todas de licencia libre).
@@ -53,6 +56,20 @@ npx serve .
 - **Especificaciones de servicios**: confirmar con el dueño los specs de las tarjetas
   (tipos de claraboyas, si venden salamandras o solo instalan conductos, etc.) y
   ajustar el texto si hace falta.
+
+## Próximos pasos recomendados (requieren cuentas del dueño)
+
+1. **Google Business Profile** (el más importante para un negocio local): crear la
+   ficha en https://business.google.com con la dirección, el teléfono y el sitio.
+   Es lo que hace aparecer al taller en Google Maps y en las búsquedas "zinguería
+   cerca mío". Gratis.
+2. **Google Search Console**: dar de alta https://cocciaretti.com en
+   https://search.google.com/search-console (verificación por registro DNS TXT en
+   GoDaddy) y enviar el sitemap. Permite ver con qué búsquedas llega la gente.
+3. **Validación pendiente en GoDaddy**: la cuenta tiene un formulario obligatorio de
+   verificación de teléfono sin completar; hasta que no se haga, el panel de DNS
+   carga con problemas. Al completarlo, cambiar el CNAME `www` para que apunte a
+   `ncocciaretti1.github.io` (forma recomendada por GitHub Pages).
 
 ## Nota de marca
 
