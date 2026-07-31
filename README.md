@@ -22,13 +22,14 @@ garantía como un sello de goma estampado sobre la boleta.
 Sin dependencias ni build: es HTML/CSS/JS estático. Las tipografías se cargan de
 Google Fonts (Anton, Archivo, Archivo Narrow, Caveat, IBM Plex Mono — todas de licencia libre).
 
-## Cómo publicarlo
+## Publicación (ya en producción)
 
-Cualquiera de estas opciones, en menos de 5 minutos:
-
-1. **Netlify Drop** (gratis): entrar a https://app.netlify.com/drop y arrastrar la carpeta completa.
-2. **Vercel**: `npx vercel` dentro de la carpeta.
-3. **Hosting tradicional (cPanel/FTP)**: subir los archivos tal cual a `public_html`.
+- **URL**: https://cocciaretti.com
+- **Hosting**: GitHub Pages, repo [`ncocciaretti1/zingueria-cocciaretti`](https://github.com/ncocciaretti1/zingueria-cocciaretti), rama `main`.
+- **Dominio**: comprado en GoDaddy; DNS apuntado a GitHub Pages
+  (4 registros A `@` → 185.199.108/109/110/111.153 + CNAME `www` → cocciaretti.com).
+- **Para actualizar el sitio**: editar los archivos, `git add -A && git commit && git push`.
+  El cambio queda online en 1-2 minutos.
 
 Para verlo localmente:
 
