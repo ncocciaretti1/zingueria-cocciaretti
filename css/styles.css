@@ -1,0 +1,983 @@
+/* ============================================================
+   ZINGUERÍA COCCIARETTI — "La página está hecha de chapa"
+   Sistema: tinta azul / papel de obra / zinc / sello rojo /
+   verde reservado exclusivamente a conversión (WhatsApp).
+   ============================================================ */
+
+/* Respaldo métrico para el display: mientras baja Anton, Arial Narrow
+   ajustada reduce el salto de layout en el titular monumental. */
+@font-face {
+  font-family: "Anton-fallback";
+  src: local("Arial Narrow"), local("Arial");
+  size-adjust: 82%;
+}
+
+:root {
+  /* Paleta */
+  --azul: #0C2340;          /* Azul Chapa — tinta primaria */
+  --azul-claro: #16345C;    /* variante para superficies sobre navy */
+  --papel: #F3EFE6;         /* Papel de Obra */
+  --papel-2: #ECE6D8;       /* Papel sombra (tarjetas, bandas) */
+  --zinc-1: #DCE1E6;
+  --zinc-2: #A9B2BB;
+  --zinc-3: #6E7881;
+  --rojo: #B5372E;          /* Rojo Sello — solo mundo sello/lápiz */
+  --verde: #25D366;         /* Verde WhatsApp — solo conversión */
+  --texto-2: #43506A;       /* secundario sobre papel */
+
+  --grad-zinc: linear-gradient(135deg, #F5F7F8 0%, #DCE1E6 20%, #A9B2BB 52%, #6E7881 84%, #8A939C 100%);
+
+  /* Tipografías */
+  --f-display: "Anton", "Anton-fallback", "Arial Narrow", sans-serif;
+  --f-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-cond: "Archivo Narrow", "Arial Narrow", sans-serif;
+  --f-mono: "IBM Plex Mono", "Courier New", monospace;
+  --f-mano: "Caveat", "Segoe Script", cursive;
+
+  /* Métricas */
+  --ancho: 1220px;
+  --margen: clamp(20px, 5vw, 64px);
+  --alto-header: 68px;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  margin: 0;
+  font-family: var(--f-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--azul);
+  background-color: var(--papel);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--rojo);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.fondo-oscuro :focus-visible,
+.oscuro :focus-visible { outline-color: var(--papel); }
+
+::selection { background: var(--azul); color: var(--papel); }
+
+.salto {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--azul);
+  color: var(--papel);
+  padding: 12px 20px;
+  z-index: 100;
+  font-weight: 700;
+}
+.salto:focus { left: 12px; top: 12px; }
+
+/* Textura de corrugado vertical, casi subliminal */
+.papel {
+  background-color: var(--papel);
+  background-image: repeating-linear-gradient(90deg,
+    rgba(12, 35, 64, 0.022) 0 1px, transparent 1px 14px);
+}
+.oscuro {
+  background-color: var(--azul);
+  color: var(--papel);
+  background-image: repeating-linear-gradient(90deg,
+    rgba(243, 239, 230, 0.03) 0 1px, transparent 1px 14px);
+}
+
+.contenedor {
+  width: min(var(--ancho), 100% - 2 * var(--margen));
+  margin-inline: auto;
+}
+
+section { position: relative; }
+section[id] { scroll-margin-top: calc(var(--alto-header) + 8px); }
+
+/* ---------- Voces tipográficas ---------- */
+.ceja {
+  font-family: var(--f-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 18px;
+}
+.ceja--roja { color: var(--rojo); }
+
+.titulo {
+  font-family: var(--f-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  font-size: clamp(2.3rem, 6vw, 4.4rem);
+  margin: 0 0 24px;
+}
+
+.mano {
+  font-family: var(--f-mano);
+  font-weight: 600;
+  font-size: clamp(1.45rem, 2.6vw, 1.9rem);
+  line-height: 1.25;
+}
+
+/* Texto con relleno de chapa galvanizada.
+   El color sólido es el respaldo: en navegadores sin background-clip:text
+   (Opera Mini, Android viejos) el texto tiene que seguir siendo legible —
+   sobre todo el teléfono gigante de contacto. */
+.chapa-texto { color: var(--zinc-2); }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .chapa-texto {
+    background-image: var(--grad-zinc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 14px 30px;
+  border-radius: 999px;
+  border: 0;
+  font-family: var(--f-body);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn--wa {
+  background: var(--verde);
+  color: var(--azul);
+  box-shadow: 0 4px 14px rgba(12, 35, 64, 0.18);
+}
+.btn--wa:hover { box-shadow: 0 8px 22px rgba(12, 35, 64, 0.24); }
+
+.btn--fantasma {
+  background: transparent;
+  color: var(--azul);
+  border: 1.5px solid var(--azul);
+}
+.btn--fantasma-claro {
+  background: transparent;
+  color: var(--papel);
+  border: 1.5px solid var(--zinc-2);
+}
+.btn svg { flex: none; }
+
+/* ---------- Header ---------- */
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--papel);
+  border-bottom: 1px solid rgba(12, 35, 64, 0.25);
+  transition: box-shadow 0.25s ease;
+}
+.cabecera.rodando { box-shadow: 0 6px 18px rgba(12, 35, 64, 0.12); }
+
+.cabecera__fila {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  min-height: var(--alto-header);
+}
+
+.marca-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.marca-lockup__svg { width: 40px; height: auto; }
+.marca-lockup__texto { display: flex; flex-direction: column; line-height: 1.05; }
+.marca-lockup__arriba {
+  font-family: var(--f-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.marca-lockup__abajo {
+  font-family: var(--f-cond);
+  font-weight: 700;
+  font-size: 1.28rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.cabecera__nav { display: none; }
+
+.cabecera__acciones {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cabecera__tel {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 10px;
+  margin-right: -10px;
+  font-family: var(--f-mono);
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.cabecera__wa {
+  display: none;
+  min-height: 44px;
+  padding: 8px 20px;
+  font-size: 0.95rem;
+}
+
+@media (min-width: 900px) {
+  .cabecera__nav {
+    display: flex;
+    gap: 28px;
+  }
+  .cabecera__nav a {
+    font-family: var(--f-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 6px 2px;
+    border-bottom: 2px solid transparent;
+  }
+  .cabecera__nav a:hover { border-bottom-color: var(--rojo); }
+  .cabecera__wa { display: inline-flex; }
+}
+
+/* ---------- Costuras corrugadas entre secciones ----------
+   La franja lleva el color de la sección SIGUIENTE de fondo,
+   y la onda pinta el color de la sección ANTERIOR encima:
+   cada chapa se solapa sobre la que viene. */
+.costura {
+  display: block;
+  width: 100%;
+  height: 22px;
+  margin: 0;
+  pointer-events: none;
+}
+.costura .onda {
+  fill: currentColor;
+  filter: drop-shadow(0 4px 4px rgba(5, 15, 30, 0.35));
+}
+.costura--a-oscuro { background-color: var(--azul); color: var(--papel); }
+.costura--a-papel { background-color: var(--papel); color: var(--azul); }
+
+/* Utilidades del mundo sello */
+.rojo-sello { color: var(--rojo); }
+.tinta { filter: url(#tinta); }
+.dot { fill: var(--azul); }
+
+/* ---------- Héroe ---------- */
+.heroe {
+  min-height: calc(100vh - var(--alto-header));
+  min-height: calc(100svh - var(--alto-header));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 5vh, 64px) 0 clamp(40px, 7vh, 80px);
+  position: relative;
+}
+
+.heroe__ceja { margin-bottom: clamp(24px, 4vh, 44px); }
+
+.heroe__titulo {
+  font-family: var(--f-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: 0.88;
+  letter-spacing: 0.005em;
+}
+.heroe__linea1 {
+  display: block;
+  font-size: clamp(3.1rem, 15.2vw, 11.4rem);
+}
+.heroe__linea2 {
+  display: block;
+  font-size: clamp(2.55rem, 12.5vw, 9.4rem);
+  position: relative;
+}
+
+/* Barrido de brillo único sobre el apellido de zinc.
+   Gradiente más profundo que el de superficies: sobre papel claro,
+   la chapa tiene que leerse; el filete de tinta la ancla. */
+.brillo { color: var(--zinc-3); }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .brillo {
+    background-image:
+      linear-gradient(100deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 70%),
+      linear-gradient(120deg, #C4CBD2 0%, #A9B2BB 30%, #8C96A0 58%, #66707A 100%);
+    background-size: 300% 100%, 100% 100%;
+    background-position: -150% 0, 0 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(12, 35, 64, 0.45);
+  }
+  .js .brillo { animation: brillo-barrido 1.6s ease-out 0.6s 1 forwards; }
+}
+@keyframes brillo-barrido {
+  to { background-position: 250% 0, 0 0; }
+}
+
+.heroe__tagline {
+  align-self: flex-end;
+  transform: rotate(-2.5deg);
+  margin: clamp(6px, 1.5vh, 14px) clamp(0px, 4vw, 60px) 6px 0;
+  color: var(--azul);
+  position: relative;
+}
+.heroe__tagline .subrayado {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--rojo);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 7px;
+}
+
+.heroe__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3.5vh, 34px);
+  margin-top: clamp(20px, 4vh, 44px);
+}
+.heroe__sub {
+  max-width: 54ch;
+  margin: 0;
+  font-size: clamp(1.06rem, 1.5vw, 1.22rem);
+  font-weight: 500;
+  line-height: 1.6;
+}
+.heroe__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+.heroe__tel-alt {
+  font-family: var(--f-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  color: var(--texto-2);
+}
+.heroe__tel-alt a { font-weight: 700; color: var(--azul); }
+
+/* Sello 50 años flotando arriba a la derecha */
+.heroe__sello {
+  position: absolute;
+  top: clamp(4px, 2vh, 30px);
+  right: clamp(14px, 5vw, 70px);
+  width: clamp(96px, 13vw, 170px);
+  transform: rotate(-9deg);
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .heroe { justify-content: flex-start; padding-top: 84px; }
+  .heroe__sello { top: -6px; width: 104px; }
+  .heroe__ceja { margin-right: 108px; }
+  /* El nombre llena el ancho: monumental también en el celular */
+  .heroe__linea1 { font-size: clamp(3rem, 21vw, 5rem); }
+  .heroe__linea2 { font-size: clamp(2.5rem, 17.3vw, 4.15rem); }
+  .heroe__ctas { flex-direction: column; align-items: stretch; }
+  .heroe__ctas .btn { width: 100%; }
+  .ceja__extra { display: none; }
+}
+
+/* Pantallas apaisadas bajas (notebooks 720-800px): el CTA debe quedar
+   arriba del fold, así que el bloque monumental se achica. */
+@media (min-width: 700px) and (max-height: 830px) {
+  .heroe { padding-top: 16px; }
+  .heroe__linea1 { font-size: clamp(3rem, 11.2vw, 8.6rem); }
+  .heroe__linea2 { font-size: clamp(2.5rem, 9.2vw, 7.1rem); }
+  .heroe__cuerpo { gap: 16px; margin-top: 18px; }
+  .heroe__sub { font-size: 1.05rem; }
+}
+
+/* ---------- Cinta marquee de oficios ---------- */
+.cinta {
+  overflow: hidden;
+  background: var(--azul);
+  color: var(--papel);
+  border-block: 1px solid var(--azul);
+  padding: 15px 0;
+}
+.cinta__pista {
+  display: flex;
+  width: max-content;
+  gap: 0;
+}
+.js .cinta__pista { animation: cinta-scroll 30s linear infinite; }
+.cinta:hover .cinta__pista { animation-play-state: paused; }
+.cinta__grupo {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+.cinta__grupo li {
+  font-family: var(--f-mono);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding-right: 1.4em;
+}
+.cinta__grupo li::after {
+  content: "✕";
+  color: var(--zinc-2);
+  padding-left: 1.4em;
+  font-size: 0.8em;
+}
+@keyframes cinta-scroll {
+  to { transform: translateX(-50%); }
+}
+
+/* Control de pausa de la cinta (WCAG 2.2.2) */
+.cinta { position: relative; }
+.cinta__pausa {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--zinc-2);
+  background: var(--azul);
+  box-shadow: 0 0 0 8px var(--azul);
+  color: var(--papel);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.cinta__pausa:hover { border-color: var(--papel); }
+.cinta__pausa .ico-play { display: none; }
+.cinta--quieta .cinta__pista { animation-play-state: paused; }
+.cinta--quieta .cinta__pausa .ico-pausa { display: none; }
+.cinta--quieta .cinta__pausa .ico-play { display: block; }
+
+/* ---------- Sección Oficios (servicios) ---------- */
+.oficios { padding: clamp(64px, 10vh, 120px) 0 clamp(72px, 11vh, 130px); }
+
+.oficios__intro {
+  max-width: 62ch;
+  margin: 0 0 44px;
+  font-size: 1.1rem;
+}
+
+.oficios__grilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background: var(--azul);
+  border: 2px solid var(--azul);
+  box-shadow: 0 18px 40px rgba(12, 35, 64, 0.12);
+}
+@media (min-width: 760px) {
+  .oficios__grilla { grid-template-columns: 1fr 1fr; }
+}
+
+/* Tarjeta = orden de trabajo */
+.ot {
+  position: relative;
+  background-color: var(--papel);
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 30px, rgba(12, 35, 64, 0.05) 30px 31px);
+  padding: 26px 26px 24px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overflow: hidden;
+}
+
+/* perforación de archivo */
+.ot::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 12px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--papel-2);
+  border: 1px solid rgba(12, 35, 64, 0.3);
+  box-shadow: inset 0 1.5px 2.5px rgba(12, 35, 64, 0.28);
+}
+
+/* pliegue de luz al pasar el mouse */
+.ot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.5) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+@media (hover: hover) {
+  .ot:hover::after { transition: transform 0.55s ease; transform: translateX(120%); }
+}
+
+.ot__num {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--texto-2);
+}
+
+.ot__icono { width: 92px; height: 92px; margin-top: 6px; }
+.ot__icono .trazo {
+  fill: none;
+  stroke: var(--azul);
+  stroke-width: 2.6;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+.ot__icono .trazo--fino { stroke-width: 1.6; }
+.ot__icono .plano { fill: url(#gradZinc); stroke: var(--azul); stroke-width: 2.6; stroke-linejoin: miter; }
+.ot__icono .guion { stroke-dasharray: 4 5; stroke-linecap: butt; }
+
+.ot__nombre {
+  font-family: var(--f-cond);
+  font-weight: 700;
+  font-size: 1.62rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.015em;
+  margin: 0;
+}
+.ot__desc {
+  margin: 0;
+  max-width: 46ch;
+  color: var(--azul);
+}
+.ot__spec {
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--texto-2);
+  margin: 0;
+}
+.ot__cta {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--verde);
+  color: var(--azul);
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ot__cta:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(12, 35, 64, 0.2); }
+
+/* ---------- 50 años ---------- */
+.cincuenta { padding: clamp(64px, 10vh, 130px) 0; overflow: hidden; }
+
+.cincuenta__grilla {
+  display: grid;
+  gap: clamp(36px, 5vw, 72px);
+  align-items: center;
+}
+@media (min-width: 920px) {
+  .cincuenta__grilla { grid-template-columns: 1.05fr 1fr; }
+}
+
+.cincuenta__numero {
+  position: relative;
+  line-height: 0.82;
+}
+.cincuenta__cifra {
+  font-family: var(--f-display);
+  font-size: clamp(11rem, 26vw, 21rem);
+  letter-spacing: -0.01em;
+  -webkit-text-stroke: 2.5px var(--azul);
+  font-variant-numeric: tabular-nums;
+}
+.cincuenta__palabra {
+  display: block;
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+.cincuenta__nota {
+  position: absolute;
+  right: 6%;
+  bottom: 18%;
+  transform: rotate(-4deg);
+  color: var(--rojo);
+}
+
+.cincuenta__quote {
+  font-family: var(--f-display);
+  text-transform: uppercase;
+  font-size: clamp(1.7rem, 3.4vw, 2.7rem);
+  line-height: 1.04;
+  margin: 0 0 22px;
+}
+.cincuenta__cita {
+  border-left: 3px solid var(--rojo);
+  margin: 0 0 22px;
+  padding: 4px 0 4px 20px;
+  font-style: italic;
+  color: var(--texto-2);
+}
+.cincuenta__cita p { margin: 0; }
+.cincuenta__texto { margin: 0 0 30px; max-width: 56ch; }
+
+/* Cota: A MEDIDA = 50 AÑOS */
+.cota { max-width: 420px; }
+.cota text { font-family: var(--f-mono); }
+
+/* Regla de plegadora (decorativa: en pantallas chicas se esconde,
+   a ese ancho las marcas quedan ilegibles) */
+.regla { margin-top: clamp(48px, 8vh, 84px); }
+@media (max-width: 700px) {
+  .regla { display: none; }
+}
+.regla svg { width: 100%; height: auto; }
+.regla text { font-family: var(--f-mono); fill: var(--azul); }
+.regla .mano-svg { font-family: var(--f-mano); font-weight: 600; fill: var(--rojo); }
+
+/* ---------- Garantía ---------- */
+.garantia {
+  padding: clamp(72px, 11vh, 140px) 0;
+  text-align: center;
+}
+/* La boleta del taller sobre la que se estampa el sello */
+.garantia__boleta {
+  position: relative;
+  width: min(560px, 100%);
+  margin: 18px auto 54px;
+  background: var(--papel);
+  color: var(--azul);
+  padding: 26px 28px 34px;
+  transform: rotate(-1.2deg);
+  box-shadow: 0 26px 60px rgba(3, 10, 22, 0.5);
+  text-align: left;
+}
+.boleta__linea {
+  font-family: var(--f-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(12, 35, 64, 0.28);
+  padding: 10px 2px;
+  margin: 0;
+  color: var(--texto-2);
+}
+.boleta__linea--cabeza {
+  font-weight: 500;
+  color: var(--azul);
+  border-bottom-width: 2px;
+  border-bottom-color: rgba(12, 35, 64, 0.5);
+}
+.boleta__valor { color: var(--azul); font-weight: 500; }
+
+.garantia__sello {
+  position: absolute;
+  right: -26px;
+  bottom: -44px;
+  width: clamp(180px, 26vw, 240px);
+  mix-blend-mode: multiply;
+}
+@media (max-width: 640px) {
+  /* El sello queda sobre el papel de la boleta: sobre el azul pierde
+     legibilidad, y sin asomarse fuera del viewport. */
+  .garantia__sello { right: -6px; bottom: -16px; width: 156px; }
+}
+.js .garantia__boleta .sello-anim {
+  transform: scale(1.3) rotate(0deg);
+  opacity: 0;
+  transform-origin: 50% 50%;
+}
+.js .garantia__boleta.estampado .sello-anim {
+  transform: scale(1) rotate(-6deg);
+  opacity: 1;
+  transition: transform 0.28s cubic-bezier(0.2, 1.4, 0.4, 1), opacity 0.18s ease-out;
+}
+.sello-anim { transform: rotate(-6deg); }
+.garantia__texto {
+  max-width: 56ch;
+  margin: 0 auto 34px;
+  font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+  color: var(--papel);
+}
+.garantia .titulo { color: var(--papel); }
+
+/* ---------- Zona ---------- */
+.zona { padding: clamp(64px, 10vh, 130px) 0; }
+.zona__grilla { display: grid; gap: clamp(32px, 4vw, 64px); }
+@media (min-width: 980px) {
+  .zona__grilla { grid-template-columns: 1.35fr 1fr; align-items: center; }
+}
+.zona__mapa svg { width: 100%; height: auto; }
+.zona__coda {
+  text-align: right;
+  color: var(--rojo);
+  margin: 6px 12px 0 0;
+  transform: rotate(-2deg);
+}
+
+/* En pantallas chicas el SVG del mapa se achica demasiado para que
+   entren todas las etiquetas: quedan los puntos + la etiqueta principal
+   (la lista de localidades está al lado, en HTML). */
+@media (max-width: 700px) {
+  .zona__mapa .lbl-sec { display: none; }
+  .zona__mapa .lbl-sdlv { font-size: 30px; }
+  .zona__mapa .mano-svg { font-size: 40px; }
+  .zona__mapa .punto { r: 9px; }
+}
+.zona__mapa text { font-family: var(--f-mono); font-weight: 500; fill: var(--azul); }
+.zona__mapa .mano-svg { font-family: var(--f-mano); font-weight: 600; fill: var(--rojo); }
+.zona__lista {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+}
+.zona__lista li {
+  font-family: var(--f-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.zona__lista li::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--rojo);
+}
+.zona__direccion {
+  font-family: var(--f-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 26px;
+  color: var(--texto-2);
+}
+.zona__link {
+  font-weight: 700;
+  color: var(--rojo);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Contacto ---------- */
+.contacto {
+  padding: clamp(72px, 11vh, 140px) 0 clamp(56px, 9vh, 110px);
+  text-align: center;
+}
+.contacto .titulo { color: var(--papel); max-width: 17ch; margin-inline: auto; }
+.contacto__sub {
+  max-width: 46ch;
+  margin: 0 auto 40px;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  color: var(--zinc-1);
+}
+.contacto__tel {
+  display: inline-block;
+  font-family: var(--f-display);
+  font-size: clamp(3rem, 11vw, 8.4rem);
+  line-height: 1;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  margin-bottom: 44px;
+  font-variant-numeric: tabular-nums;
+}
+.contacto__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+.contacto__garante {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.contacto__mini-sello { width: 74px; flex: none; transform: rotate(-8deg); color: var(--papel); opacity: 0.9; }
+.contacto__direccion {
+  font-family: var(--f-mono);
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--zinc-2);
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .contacto__acciones { flex-direction: column; align-items: stretch; }
+  .contacto__acciones .btn { width: 100%; }
+  .contacto__garante {
+    width: 100%;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .contacto__garante .btn { width: 100%; }
+}
+
+/* ---------- Footer con cajetín ---------- */
+.pie { padding: 40px 0 34px; border-top: 1px solid rgba(243, 239, 230, 0.2); }
+@media (max-width: 640px) {
+  /* Aire extra para que el FAB flotante no tape el cierre */
+  .pie { padding-bottom: 104px; }
+}
+.cajetin {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--f-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+.cajetin caption {
+  text-align: left;
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--zinc-2);
+  padding-bottom: 10px;
+}
+.cajetin th, .cajetin td {
+  border: 1px solid rgba(243, 239, 230, 0.3);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 400;
+  color: var(--papel);
+}
+.cajetin th { color: var(--zinc-2); font-weight: 500; width: 34%; }
+.cajetin a { color: var(--papel); }
+
+.pie__final {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.pie__marca { display: flex; align-items: center; gap: 14px; }
+.pie__marca svg { width: 44px; }
+.pie__tag { color: var(--zinc-2); margin: 0; }
+.pie__copy {
+  font-family: var(--f-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--zinc-2);
+  margin: 0;
+}
+
+/* ---------- FAB WhatsApp ----------
+   Sin JS el botón queda visible desde el inicio; el estado oculto
+   solo existe bajo .js (y visibility lo saca del orden de tabulación). */
+.fab {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 60;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: var(--verde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(12, 35, 64, 0.35);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+}
+.js .fab {
+  opacity: 0;
+  transform: translateY(16px) scale(0.9);
+  pointer-events: none;
+  visibility: hidden;
+}
+.js .fab.visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.fab:hover { transform: translateY(-3px); }
+.fab:focus-visible {
+  outline: 3px solid var(--papel);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--azul), 0 8px 24px rgba(12, 35, 64, 0.35);
+}
+.fab svg { width: 30px; height: 30px; }
+
+/* ---------- Revelado al scroll ---------- */
+.js .revelar {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.js .revelar.visto { opacity: 1; transform: none; }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .brillo { animation: none; background-position: 250% 0, 0 0; }
+  .js .cinta__pista { animation: none; flex-wrap: wrap; width: auto; }
+  .cinta__grupo { flex-wrap: wrap; white-space: normal; }
+  .cinta__grupo--copia { display: none; }
+  .js .revelar { opacity: 1; transform: none; transition: none; }
+  .js .garantia__boleta .sello-anim { transform: scale(1) rotate(-6deg); opacity: 1; transition: none; }
+  .ot::after { display: none; }
+  .btn, .ot__cta, .fab { transition: none; }
+  .js .fab { opacity: 1; transform: none; pointer-events: auto; visibility: visible; }
+  .cinta__pausa { display: none; }
+}
