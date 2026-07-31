@@ -18,6 +18,9 @@
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="geo.region" content="AR-B">
+<meta name="geo.placename" content="Sierra de la Ventana, Buenos Aires, Argentina">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700&family=Archivo+Narrow:wght@700&family=Caveat:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -26,6 +29,7 @@
 {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
+  "@id": "https://cocciaretti.com/#negocio",
   "name": "Zinguería Cocciaretti",
   "description": "Taller de zinguería en Sierra de la Ventana: claraboyas, eólicos, reparación y armado de techos, salidas de ventilación, salamandras y canaletas a medida y estándar. 50 años de experiencia. Trabajos garantizados en ciudad y zona.",
   "slogan": "Del taller a tu techo, hace 50 años.",
@@ -39,7 +43,20 @@
     "addressRegion": "Provincia de Buenos Aires",
     "addressCountry": "AR"
   },
-  "areaServed": ["Sierra de la Ventana", "Villa Ventana", "Saldungaray", "Villa Arcadia", "Tornquist"]
+  "areaServed": ["Sierra de la Ventana", "Villa Ventana", "Saldungaray", "Villa Arcadia", "Tornquist"],
+  "knowsAbout": ["zinguería", "techos de chapa", "canaletas", "claraboyas", "extractores eólicos", "salamandras", "ventilaciones"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Servicios de zinguería",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Claraboyas", "description": "Claraboyas a medida, selladas contra el viento y la lluvia." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Eólicos", "description": "Extractores eólicos que ventilan el techo sin consumo eléctrico." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Reparación y armado de techos", "description": "Techos de chapa nuevos y reparación de goteras, chapas flojas y cumbreras." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Salidas de ventilación", "description": "Conductos y sombreretes para cocina, baño y estufas." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Salamandras", "description": "Salamandras con conducto y pasada de techo instaladas de forma segura." } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Canaletas a medida y estándar", "description": "Canaletas medidas en obra y plegadas en el taller: caídas, bajadas y desagües." } }
+    ]
+  }
 }
 </script>
 </head>
