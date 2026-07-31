@@ -1,0 +1,34 @@
+name: Verificación del sitio
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  numero-canonico:
+    name: Número de contacto canónico
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Todos los enlaces usan el número correcto
+        run: |
+          set -euo pipefail
+          malos=$(grep -hEo 'wa\.me/[0-9]+' index.html 404.html | grep -v '^wa\.me/5492916442231$' || true)
+          if [ -n "$malos" ]; then echo "::error::wa.me con número incorrecto: $malos"; exit 1; fi
+          malos=$(grep -hEo 'tel:\+[0-9]+' index.html 404.html | grep -v '^tel:\+5492916442231$' || true)
+          if [ -n "$malos" ]; then echo "::error::tel: con número incorrecto: $malos"; exit 1; fi
+          grep -q 'wa\.me/5492916442231' index.html
+          grep -q 'tel:+5492916442231' index.html
+          grep -qF '"telephone": "+54 9 2916 44-2231"' index.html
+          echo "Número canónico verificado en index.html y 404.html."
+
+  html-valido:
+    name: HTML válido
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npx --yes html-validate index.html 404.html

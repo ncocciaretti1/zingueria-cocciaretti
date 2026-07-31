@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zinguería Cocciaretti — Techos, canaletas y salamandras en Sierra de la Ventana</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Zinguería Cocciaretti — Techos y canaletas en Sierra de la Ventana</title>
 <meta name="description" content="Zinguería en Sierra de la Ventana: techos, canaletas, claraboyas, eólicos y salamandras. 50 años de experiencia, trabajos garantizados. Tel. 2916 44-2231.">
 <meta name="theme-color" content="#0C2340">
 <meta property="og:title" content="Zinguería Cocciaretti — Sierra de la Ventana">
@@ -21,9 +22,8 @@
 <link rel="manifest" href="site.webmanifest">
 <meta name="geo.region" content="AR-B">
 <meta name="geo.placename" content="Sierra de la Ventana, Buenos Aires, Argentina">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;700&family=Archivo+Narrow:wght@700&family=Caveat:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/styles.css">
 <script type="application/ld+json">
 {
@@ -65,7 +65,7 @@
 <a class="salto" href="#principal">Saltar al contenido</a>
 
 <!-- ======= Definiciones SVG compartidas ======= -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<svg class="defs-svg" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
     <linearGradient id="gradZinc" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#F5F7F8"/>
@@ -138,7 +138,7 @@
       <a href="#contacto">Contacto</a>
     </nav>
     <div class="cabecera__acciones">
-      <a class="cabecera__tel" href="tel:+5492916442231">2916 44-2231</a>
+      <a class="cabecera__tel" href="tel:+5492916442231">2916&nbsp;44&#8209;2231</a>
       <a class="btn btn--wa cabecera__wa" href="https://wa.me/5492916442231?text=Hola%20Cocciaretti%2C%20quiero%20pedir%20un%20presupuesto." target="_blank" rel="noopener">
         <svg width="18" height="18" aria-hidden="true"><use href="#icoWa"/></svg>
         Escribinos
@@ -167,7 +167,7 @@
           </a>
           <a class="btn btn--fantasma" href="#oficios">Ver los servicios<span aria-hidden="true"> ↓</span></a>
         </div>
-        <p class="heroe__tel-alt">¿Preferís llamar? <a href="tel:+5492916442231">2916 44-2231</a></p>
+        <p class="heroe__tel-alt">¿Preferís llamar? <a href="tel:+5492916442231">2916&nbsp;44&#8209;2231</a></p>
       </div>
     </div>
     <div class="heroe__sello" aria-hidden="true">
@@ -443,7 +443,7 @@
       <h2 class="titulo revelar">Mandanos una foto del problema</h2>
       <p class="contacto__sub revelar">Sacale una foto a la canaleta, al techo o a la estufa y mandánosla por WhatsApp. Te respondemos con un presupuesto estimado, sin compromiso.</p>
 
-      <a class="contacto__tel chapa-texto revelar" href="tel:+5492916442231">2916 44-2231</a>
+      <a class="contacto__tel chapa-texto revelar" href="tel:+5492916442231">2916&nbsp;44&#8209;2231</a>
 
       <div class="contacto__acciones revelar">
         <span class="contacto__garante">
@@ -483,7 +483,7 @@
           <tr><th scope="row">Comitente</th><td>Vos</td></tr>
           <tr><th scope="row">Zinguero</th><td>Cocciaretti · 50 años de oficio</td></tr>
           <tr><th scope="row">Ubicación</th><td>Del Arroyo 395 · B° San Bernardo · Sierra de la Ventana</td></tr>
-          <tr><th scope="row">Tel / WhatsApp</th><td><a href="tel:+5492916442231">2916 44-2231</a></td></tr>
+          <tr><th scope="row">Tel / WhatsApp</th><td><a href="tel:+5492916442231">2916&nbsp;44&#8209;2231</a></td></tr>
           <tr><th scope="row">Escala</th><td>1:1 — como todo lo que hacemos</td></tr>
         </tbody>
       </table>
@@ -498,7 +498,7 @@
   </footer>
 
 <a class="fab" id="fab" href="https://wa.me/5492916442231?text=Hola%20Cocciaretti%2C%20quiero%20pedir%20un%20presupuesto." target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
-  <svg viewBox="0 0 24 24" aria-hidden="true" style="color:#0C2340"><use href="#icoWa"/></svg>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#icoWa"/></svg>
 </a>
 
 <script src="js/main.js" defer></script>

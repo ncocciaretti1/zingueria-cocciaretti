@@ -1,0 +1,43 @@
+name: Disponibilidad
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  chequeo:
+    name: cocciaretti.com responde
+    runs-on: ubuntu-latest
+    steps:
+      - name: Probar el sitio (3 intentos)
+        run: |
+          for i in 1 2 3; do
+            if curl -fsS -o /dev/null --max-time 20 "https://cocciaretti.com" \
+               || curl -fsS -o /dev/null --max-time 20 "http://cocciaretti.com"; then
+              echo "El sitio responde."
+              exit 0
+            fi
+            sleep 30
+          done
+          exit 1
+      - name: Avisar con un issue si está caído
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const abiertos = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo,
+              labels: 'caida', state: 'open',
+            });
+            if (abiertos.data.length === 0) {
+              await github.rest.issues.create({
+                owner: context.repo.owner, repo: context.repo.repo,
+                title: '🔴 cocciaretti.com no responde',
+                labels: ['caida'],
+                body: 'El chequeo automático no pudo acceder al sitio (3 intentos con 30s de espera). Revisar en este orden: 1) https://www.githubstatus.com (¿Pages caído?), 2) el dominio en GoDaddy (¿venció? ¿DNS tocado?), 3) el certificado en Settings → Pages del repo.',
+              });
+            }

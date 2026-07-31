@@ -1,0 +1,20 @@
+name: Enlaces externos
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  lychee:
+    name: Chequear enlaces
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --accept "100..=103,200..=299,403,429" index.html 404.html README.md
+          fail: true

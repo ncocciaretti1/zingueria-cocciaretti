@@ -4,6 +4,73 @@
    verde reservado exclusivamente a conversión (WhatsApp).
    ============================================================ */
 
+/* Tipografías autoalojadas (subset latin, descargadas de Google Fonts;
+   licencias libres OFL/Apache). El sitio no depende de ningún tercero. */
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/anton-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/archivo-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/archivo-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/archivo-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo Narrow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/archivo-narrow-700.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/caveat-600.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/ibm-plex-mono-400.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/ibm-plex-mono-500.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* Respaldo métrico para el display: mientras baja Anton, Arial Narrow
    ajustada reduce el salto de layout en el titular monumental. */
 @font-face {
@@ -957,7 +1024,52 @@ section[id] { scroll-margin-top: calc(var(--alto-header) + 8px); }
   outline-offset: 3px;
   box-shadow: 0 0 0 3px var(--azul), 0 8px 24px rgba(12, 35, 64, 0.35);
 }
-.fab svg { width: 30px; height: 30px; }
+.fab svg { width: 30px; height: 30px; color: var(--azul); }
+
+.defs-svg { position: absolute; }
+
+/* ---------- Página de error (OT-404) ---------- */
+.error {
+  min-height: 100svh;
+  justify-content: center;
+  text-align: center;
+}
+.error__titulo { margin-bottom: 18px; }
+.error__codigo { font-size: clamp(5rem, 22vw, 13rem); }
+.error__mano {
+  color: var(--rojo);
+  transform: rotate(-2deg);
+  margin: 0 0 14px;
+}
+.error__texto { max-width: 44ch; margin: 0 auto 34px; }
+.error__ctas { justify-content: center; }
+.error__tel { margin-top: 26px; }
+
+/* ---------- Impresión ----------
+   El público 60+ imprime la página para guardar el teléfono: sin esto,
+   las secciones azules salen con texto crema casi invisible y el
+   teléfono gigante (texto transparente con gradiente) sale EN BLANCO. */
+@media print {
+  body, .papel, .oscuro {
+    background: #fff !important;
+    background-image: none !important;
+    color: #000 !important;
+  }
+  .oscuro *, .cajetin th, .cajetin td, .contacto__sub, .garantia__texto,
+  .contacto__direccion, .pie__tag, .pie__copy { color: #000 !important; }
+  .cajetin th, .cajetin td { border-color: #000; }
+  .chapa-texto, .brillo {
+    background: none !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+    color: #000 !important;
+    -webkit-text-stroke: 0 !important;
+  }
+  .fab, .cinta, .costura, .cinta__pausa, .btn, .ot__cta, .salto,
+  .heroe__sello, .garantia__sello, .cabecera__wa { display: none !important; }
+  .ot { box-shadow: none; }
+  a { color: #000 !important; text-decoration: none; }
+}
 
 /* ---------- Revelado al scroll ---------- */
 .js .revelar {
