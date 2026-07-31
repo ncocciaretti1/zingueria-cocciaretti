@@ -57,6 +57,29 @@ npx serve .
   (tipos de claraboyas, si venden salamandras o solo instalan conductos, etc.) y
   ajustar el texto si hace falta.
 
+## Endurecimiento aplicado (auditoría 01/08/2026)
+
+- **Tipografías autoalojadas** en `/fonts/` (subset latin, 211 KB): el sitio no depende
+  de ningún servidor externo. CSP activo por meta-tag en ambas páginas.
+- **CI en cada push**: número de contacto canónico verificado en todos los enlaces +
+  validación de HTML. Chequeo de enlaces externos semanal. **Monitoreo de
+  disponibilidad cada 30 min** que abre un issue si el sitio no responde.
+- Rama `main` protegida (sin force-push ni borrado). `.nojekyll`. Hoja de impresión
+  (el teléfono ya no se imprime invisible). Teléfonos con espacios irrompibles.
+
+## Pendientes de seguridad que requieren al titular de las cuentas
+
+1. **En GoDaddy** (cuando completes la validación telefónica y el panel DNS funcione),
+   cargar 3 registros anti-suplantación de correo:
+   - TXT · nombre `@` · valor `v=spf1 -all`
+   - MX · nombre `@` · prioridad `0` · valor `.`
+   - Editar el TXT `_dmarc` → `v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s`
+2. **En GitHub** (3 minutos): github.com/settings/pages → *Add a domain* →
+   `cocciaretti.com` → cargar el TXT que te da (empieza con
+   `_github-pages-challenge-ncocciaretti1`) en el DNS de GoDaddy → *Verify*.
+   Esto impide que alguien pueda reclamar el dominio en Pages si el repo se borrara.
+3. **2FA** en GitHub y GoDaddy + auto-renovación del dominio (ver INFORME-AUDITORIA.md).
+
 ## Próximos pasos recomendados (requieren cuentas del dueño)
 
 1. **Google Business Profile** (el más importante para un negocio local): crear la
