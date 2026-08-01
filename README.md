@@ -67,18 +67,20 @@ npx serve .
 - Rama `main` protegida (sin force-push ni borrado). `.nojekyll`. Hoja de impresión
   (el teléfono ya no se imprime invisible). Teléfonos con espacios irrompibles.
 
-## Pendientes de seguridad que requieren al titular de las cuentas
+## Seguridad de cuentas y DNS — COMPLETADO (01/08/2026)
 
-1. **En GoDaddy** (cuando completes la validación telefónica y el panel DNS funcione),
-   cargar 3 registros anti-suplantación de correo:
-   - TXT · nombre `@` · valor `v=spf1 -all`
-   - MX · nombre `@` · prioridad `0` · valor `.`
-   - Editar el TXT `_dmarc` → `v=DMARC1; p=reject; sp=reject; adkim=s; aspf=s`
-2. **En GitHub** (3 minutos): github.com/settings/pages → *Add a domain* →
-   `cocciaretti.com` → cargar el TXT que te da (empieza con
-   `_github-pages-challenge-ncocciaretti1`) en el DNS de GoDaddy → *Verify*.
-   Esto impide que alguien pueda reclamar el dominio en Pages si el repo se borrara.
-3. **2FA** en GitHub y GoDaddy + auto-renovación del dominio (ver INFORME-AUDITORIA.md).
+- ✅ Validación telefónica de GoDaddy completada (panel DNS operativo).
+- ✅ Anti-suplantación de correo: SPF `v=spf1 -all` + MX nulo (RFC 7505) +
+  DMARC `p=reject` estricto — verificados en ambos nameservers.
+- ✅ **Dominio verificado en GitHub** (TXT challenge cargado y "Successfully
+  verified"): nadie puede reclamar cocciaretti.com en Pages aunque el repo se borre.
+- ✅ CNAME `www` → `ncocciaretti1.github.io` (forma recomendada por GitHub).
+- ✅ **Renovación automática del dominio activada** (vence 31/07/2027, 21,99 €/año);
+  bloqueo de transferencia y privacidad WHOIS ya estaban activos.
+
+**Único pendiente de seguridad**: activar 2FA con app de autenticación en GitHub
+(Settings → Password and authentication) y en GoDaddy (Configuración → Seguridad),
+guardando los códigos de recuperación impresos.
 
 ## Próximos pasos recomendados (requieren cuentas del dueño)
 
