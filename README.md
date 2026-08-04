@@ -27,12 +27,19 @@ Google Fonts (Anton, Archivo, Archivo Narrow, Caveat, IBM Plex Mono — todas de
 
 ## Publicación (ya en producción)
 
-- **URL**: https://cocciaretti.com
-- **Hosting**: GitHub Pages, repo [`ncocciaretti1/zingueria-cocciaretti`](https://github.com/ncocciaretti1/zingueria-cocciaretti), rama `main`.
-- **Dominio**: comprado en GoDaddy; DNS apuntado a GitHub Pages
-  (4 registros A `@` → 185.199.108/109/110/111.153 + CNAME `www` → cocciaretti.com).
-- **Para actualizar el sitio**: editar los archivos, `git add -A && git commit && git push`.
-  El cambio queda online en 1-2 minutos.
+- **URL**: https://cocciaretti.com (con HTTPS; `www` y `http://` redirigen ahí)
+- **Hosting**: **Vercel**, proyecto `zingueria-cocciaretti`, conectado al repo
+  [`ncocciaretti1/zingueria-cocciaretti`](https://github.com/ncocciaretti1/zingueria-cocciaretti).
+- **Dominio**: comprado en GoDaddy; DNS apuntado a Vercel
+  (A `@` → 76.76.21.21 · CNAME `www` → cname.vercel-dns.com).
+- **Para actualizar el sitio**: editar los archivos y `git add -A && git commit && git push`.
+  Vercel despliega solo en ~1 minuto. (Deploy manual, si hiciera falta: `npx vercel deploy --prod`.)
+
+> **Por qué Vercel y no GitHub Pages**: el certificado HTTPS de GitHub Pages quedó
+> atascado en estado "new" durante 3 días pese a tener el DNS perfecto (verificado con
+> su propio health check y con los registros públicos de Certificate Transparency);
+> su soporte no cubre planes gratuitos. Vercel emitió el certificado en 2 minutos y
+> además permite headers de seguridad (HSTS, X-Frame-Options, etc.), imposibles en Pages.
 
 Para verlo localmente:
 
