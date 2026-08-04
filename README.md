@@ -27,7 +27,8 @@ Google Fonts (Anton, Archivo, Archivo Narrow, Caveat, IBM Plex Mono — todas de
 
 ## Publicación (ya en producción)
 
-- **URL**: https://cocciaretti.com (con HTTPS; `www` y `http://` redirigen ahí)
+- **URL**: https://www.cocciaretti.com (con HTTPS; el dominio sin `www` y `http://`
+  redirigen ahí con 308)
 - **Hosting**: **Vercel**, proyecto `zingueria-cocciaretti`, conectado al repo
   [`ncocciaretti1/zingueria-cocciaretti`](https://github.com/ncocciaretti1/zingueria-cocciaretti).
 - **Dominio**: comprado en GoDaddy; DNS apuntado a Vercel
@@ -95,7 +96,7 @@ guardando los códigos de recuperación impresos.
    ficha en https://business.google.com con la dirección, el teléfono y el sitio.
    Es lo que hace aparecer al taller en Google Maps y en las búsquedas "zinguería
    cerca mío". Gratis.
-2. **Google Search Console**: dar de alta https://cocciaretti.com en
+2. **Google Search Console**: dar de alta https://www.cocciaretti.com en
    https://search.google.com/search-console (verificación por registro DNS TXT en
    GoDaddy) y enviar el sitemap. Permite ver con qué búsquedas llega la gente.
 3. **Validación pendiente en GoDaddy**: la cuenta tiene un formulario obligatorio de

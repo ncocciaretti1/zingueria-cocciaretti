@@ -16,8 +16,8 @@ jobs:
       - name: Probar el sitio (3 intentos)
         run: |
           for i in 1 2 3; do
-            if curl -fsS -o /dev/null --max-time 20 "https://cocciaretti.com" \
-               || curl -fsS -o /dev/null --max-time 20 "http://cocciaretti.com"; then
+            if curl -fsSL -o /dev/null --max-time 20 "https://www.cocciaretti.com" \
+               || curl -fsSL -o /dev/null --max-time 20 "https://cocciaretti.com"; then
               echo "El sitio responde."
               exit 0
             fi

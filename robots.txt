@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cocciaretti.com/sitemap.xml
+Sitemap: https://www.cocciaretti.com/sitemap.xml
